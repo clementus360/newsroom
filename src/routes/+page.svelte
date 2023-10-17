@@ -1,100 +1,37 @@
 <script>
+    /** @type {import('./$types').PageData} */
     import ArticleCard from './ArticleCard.svelte'
 	import CategoryCard from './CategoryCard.svelte';
 	import Hero from './Hero.svelte';
 	import PopularCard from './PopularCard.svelte';
 	import Profile from './Profile.svelte';
 
-    const LatestArticles = [
-        {
-        id: 1,
-        category: 'Politics',
-        title: 'Umuyobozi mukuru wa RDB yeguye',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-13'
-    },
-    {
-        id: 2,
-        category: 'Fashion',
-        title: "Inzi y' imideli ya moshions yatangije igikorwa cya gira umwenda munyarwanda",
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-14'
-    },
-    {
-        id: 3,
-        category: 'Technology',
-        title: 'Ibikorwa Byebye muri Tekinoloji',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-15'
-    },
-    {
-        id: 4,
-        category: 'Travel',
-        title: 'Amavuko Yacu mu Mujyi mwiza',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-16'
-    },{
-        id: 5,
-        category: 'Health',
-        title: 'Amasano ya gusimba kubuzima',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-17'
-    },
-    {
-        id: 6,
-        category: 'Entertainment',
-        title: 'Amakuru yasohokaga mu birori',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-18'
-    },
-    {
-        id: 7,
-        category: 'Sports',
-        title: 'Ibitero byo kuvugurura Amakipe ya Perezida',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-19'
-    },
-    {
-        id: 8,
-        category: 'Science',
-        title: 'Amakuru Ku Byigenga',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-20'
-    },
-    {
-        id: 9,
-        category: 'Food',
-        title: 'Ibihaza Byiza bya Gutera',
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-21'
-    },
-    {
-        id: 10,
-        category: 'Education',
-        title: "Amakuru ku iterambere ry'umurimo",
-        image: '/3705677.jpg',
-        link: '/',
-        date: '2023-10-22'
-    }
-        
-    ]
+    export let data;
 
+    /**
+	 * @type {{ id: any; title: any; category: any; article: any; link: string; image: string; }[]}
+	 */
+    let LatestArticles = []
+    
+    data.data.forEach((/** @type {{ id: any; attributes: { Title: any; Category: any; Article: any; Image: { data: { attributes: { url: string; }; }[]; }; }; }} */ article) => {
 
-    LatestArticles.sort((a,b) => new Date(b.date) - new Date(a.date))
+        LatestArticles.push({
+            id: article.id,
+            title: article.attributes.Title,
+            category: article.attributes.Category,
+            article: article.attributes.Article,
+            link: `/articles/${article.id}`,
+            image: 'http://localhost:1337' + article.attributes.Image.data[0].attributes.url
+        })
+    });
+
+    // @ts-ignore
+    LatestArticles.sort((a,b) => new Date(b.published) - new Date(a.published))
 
 </script>
 
 <div>
-    <Hero />
+    <Hero {...LatestArticles[0]}/>
 
     <div class="flex flex-col gap-8 px-16 py-16">
         <h1 class="text-4xl font-bold">Latest Articles</h1>

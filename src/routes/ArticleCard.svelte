@@ -21,7 +21,7 @@
 
 </script>
 
-<div style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url({image});" class="h-[50vh] w-full flex flex-col px-16 py-12 rounded-lg bg-cover">
+<div style="background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.8)), url({image});" class="h-[50vh] w-full flex flex-col px-16 py-12 rounded-lg bg-cover">
     <button class="bg-white text-Secondary justify-self-start self-start rounded-lg flex items-center gap-4 py-2 px-12 w-max">
         {category}
     </button>
